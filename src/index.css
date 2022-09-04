@@ -1,13 +1,44 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "Pretendard";
+  src: url("assets/fonts/Pretendard-ExtraLight.woff2") format("woff2"),
+    url("assets/fonts/Pretendard-ExtraLight.woff") format("woff"),
+    url("assets/fonts/Pretendard-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: "Pretendard";
+  src: url("assets/fonts/Pretendard-Regular.woff2") format("woff2"),
+    url("assets/fonts/Pretendard-Regular.woff") format("woff"),
+    url("assets/fonts/Pretendard-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2"),
+    url("assets/fonts/Pretendard-SemiBold.woff") format("woff"),
+    url("assets/fonts/Pretendard-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("assets/fonts/Pretendard-ExtraBold.woff2") format("woff2"),
+    url("assets/fonts/Pretendard-ExtraBold.woff") format("woff"),
+    url("assets/fonts/Pretendard-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* 어비얀느체 */
+@font-face {
+  font-family: "Yan";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeYanNeu.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
