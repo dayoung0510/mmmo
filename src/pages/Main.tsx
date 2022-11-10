@@ -1,7 +1,7 @@
-import { useForm } from 'react-hook-form';
-import { FlexVer } from 'components/atoms/Divs';
-import { Input } from 'components/atoms/Inputs';
-import { Button } from 'components/atoms/Buttons';
+import { useForm } from "react-hook-form";
+import { FlexVer } from "src/components/atoms/Divs";
+import { Input } from "src/components/atoms/Inputs";
+import { Button } from "src/components/atoms/Buttons";
 
 type FormDataType = {
   date: string;
@@ -17,17 +17,17 @@ const Main = () => {
   const onSubmit = async (formData: FormDataType) => {
     try {
       const res = await fetch(
-        'https://sheet.best/api/sheets/9005c4be-feec-4fe7-bdc0-89ac72469237',
+        "https://sheet.best/api/sheets/9005c4be-feec-4fe7-bdc0-89ac72469237",
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
         }
       );
       if (res.ok) {
-        console.log('성공');
+        console.log("성공");
       }
     } catch (error) {
       console.log(error);
@@ -38,14 +38,14 @@ const Main = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FlexVer>
-          <Input type='date' {...register('date')} />
-          <Input placeholder='현재 지갑 금액' {...register('wallet')} />
-          <Input placeholder='시간' {...register('time')} />
-          <Input placeholder='종목' {...register('name')} />
-          <Input placeholder='메모' {...register('memo')} />
+          <Input type="date" {...register("date")} />
+          <Input placeholder="현재 지갑 금액" {...register("wallet")} />
+          <Input placeholder="시간" {...register("time")} />
+          <Input placeholder="종목" {...register("name")} />
+          <Input placeholder="메모" {...register("memo")} />
         </FlexVer>
         <div>
-          <Button type='submit'>확인</Button>
+          <Button type="submit">확인</Button>
         </div>
       </form>
     </>
