@@ -5,10 +5,6 @@ import WithdrawRecord from "src/pages/WithdrawRecord";
 import Welfare from "src/pages/Welfare";
 
 const Index = () => {
-  // https://www.youtube.com/watch?v=PFJNJQCU_lo
-  // const express = require("express");
-  // const { google } = require("googleapis");
-
   return (
     <>
       <Routes>

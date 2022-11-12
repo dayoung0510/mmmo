@@ -36,7 +36,7 @@ const Main = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form method="POST" onSubmit={handleSubmit(onSubmit)}>
         <FlexVer>
           <Input type="date" {...register("date")} />
           <Input placeholder="현재 지갑 금액" {...register("wallet")} />
