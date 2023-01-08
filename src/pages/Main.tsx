@@ -4,10 +4,16 @@ import { FlexVer } from "src/components/atoms/Divs";
 import { Input } from "src/components/atoms/Inputs";
 import { Button } from "src/components/atoms/Buttons";
 import { db } from "src/firebase-config";
-import { collection, DocumentData, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 type FormDataType = {
-  id: string;
   date: Date;
   value: string;
   name: string;
@@ -23,17 +29,23 @@ const Main = () => {
   useEffect(() => {
     const getWallet = async () => {
       const data = await getDocs(walletCollectionRef);
-      setWallet(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      console.log(data);
+      setWallet(data.docs.map((d) => ({ ...d.data(), id: d.id })));
     };
     getWallet();
-  }, []);
+  }, [walletCollectionRef]);
 
   const { handleSubmit, register } = useForm<FormDataType>();
 
+  //create
   const onSubmit = async (formData: FormDataType) => {
     await addDoc(walletCollectionRef, { ...formData });
-    console.log("성공");
+  };
+
+  //update
+  const update = async ({ id, name }: { id: string; name: string }) => {
+    const walletDoc = doc(db, "wallet", id);
+    const newFields = { name: `${name}(수정됨)` };
+    await updateDoc(walletDoc, newFields);
   };
 
   if (!wallet) return <div>데이터를 불러올 수 없습니다.</div>;
@@ -52,7 +64,18 @@ const Main = () => {
         </div>
         <div>
           {wallet.map((w) => {
-            return <div key={w.id}>{w.name}</div>;
+            return (
+              <div key={w.id}>
+                {Date.parse(w.date)}
+                {w.value} {w.name} {w.memo}
+                <button
+                  type="button"
+                  onClick={() => update({ id: w.id, name: w.name })}
+                >
+                  수정
+                </button>
+              </div>
+            );
           })}
         </div>
       </form>
