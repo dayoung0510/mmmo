@@ -15,4 +15,7 @@ export default defineConfig({
       src: "/src",
     },
   },
+  define: {
+    "process.env": {},
+  },
 });
