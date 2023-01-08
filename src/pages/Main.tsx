@@ -10,6 +10,7 @@ import {
   getDocs,
   addDoc,
   updateDoc,
+  deleteDoc,
   doc,
 } from "firebase/firestore";
 
@@ -42,10 +43,16 @@ const Main = () => {
   };
 
   //update
-  const update = async ({ id, name }: { id: string; name: string }) => {
+  const handleUpdate = async ({ id, name }: { id: string; name: string }) => {
     const walletDoc = doc(db, "wallet", id);
     const newFields = { name: `${name}(수정됨)` };
     await updateDoc(walletDoc, newFields);
+  };
+
+  //delete
+  const handleDelete = async (id: string) => {
+    const walletDoc = doc(db, "wallet", id);
+    await deleteDoc(walletDoc);
   };
 
   if (!wallet) return <div>데이터를 불러올 수 없습니다.</div>;
@@ -70,9 +77,12 @@ const Main = () => {
                 {w.value} {w.name} {w.memo}
                 <button
                   type="button"
-                  onClick={() => update({ id: w.id, name: w.name })}
+                  onClick={() => handleUpdate({ id: w.id, name: w.name })}
                 >
                   수정
+                </button>
+                <button type="button" onClick={() => handleDelete(w.id)}>
+                  삭제
                 </button>
               </div>
             );
