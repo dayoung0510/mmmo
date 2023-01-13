@@ -1,32 +1,54 @@
 import { useForm } from "react-hook-form";
-import { db } from "src/firebase-config";
-import { collection, addDoc } from "firebase/firestore";
 import { Flex, Input, Button, Center } from "@chakra-ui/react";
+import React, { useRef } from "react";
 
 type FormDataType = {
-  date: Date;
-  value: string;
+  time: string;
+  wallet: string;
   name: string;
+  leverage: string;
   memo: string;
 };
 
+const getTime = () => {
+  const date = new Date();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const day = ("0" + date.getDate()).slice(-2);
+  const hours = ("0" + date.getHours()).slice(-2);
+  const minutes = ("0" + date.getMinutes()).slice(-2);
+
+  return month + "월" + day + "일 " + hours + ":" + minutes;
+};
+
 const Recording = () => {
-  const walletCollectionRef = collection(db, "wallet");
+  const { register, reset } = useForm<FormDataType>();
 
-  const { handleSubmit, register } = useForm<FormDataType>();
+  const formRef = useRef(null!);
 
-  //create
-  const onSubmit = async (formData: FormDataType) => {
-    await addDoc(walletCollectionRef, { ...formData });
+  const currentTime = getTime();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(formRef.current);
+    fetch(
+      "https://script.google.com/macros/s/AKfycbzaa4Lcjam3g10dDVcTNfCIoyuyhSvfE2mICW_JA32wAZXzwqlPJsQ8OHjvHj4mgoUMFw/exec",
+      { method: "POST", body: new FormData(formRef.current) }
+    )
+      .then((res) => {
+        reset();
+        console.log("SUCCESSFULLY SUBMITTED");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <>
-      <form method="POST" onSubmit={handleSubmit(onSubmit)}>
+      <form method="post" ref={formRef} onSubmit={handleSubmit}>
         <Flex alignItems="center">
-          <Input type="date" {...register("date")} />
-          <Input placeholder="현재 지갑 금액" {...register("value")} />
+          <Input defaultValue={currentTime} {...register("time")} />
+          <Input placeholder="현재 지갑 금액" {...register("wallet")} />
           <Input placeholder="종목" {...register("name")} />
+          <Input placeholder="배율" {...register("leverage")} />
           <Input placeholder="메모" {...register("memo")} />
           <Button type="submit">확인</Button>
         </Flex>
