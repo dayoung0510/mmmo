@@ -1,57 +1,73 @@
 import { useForm } from "react-hook-form";
-import { Flex, Input, Button, Center } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import { Textarea, Input, Button, VStack, HStack } from "@chakra-ui/react";
+import React, { useState, useRef } from "react";
+import MySpinner from "src/components/atoms/MySpinner";
+import CustomRadio from "src/components/atoms/CustomRadio";
+import { getTime, getDate } from "src/utils";
 
 type FormDataType = {
+  date: string;
   time: string;
-  wallet: string;
-  name: string;
-  leverage: string;
+  type: string;
+  start: number;
+  end: number;
+  coin: string;
+  leverage: number;
   memo: string;
 };
 
-const getTime = () => {
-  const date = new Date();
-  const month = ("0" + (date.getMonth() + 1)).slice(-2);
-  const day = ("0" + date.getDate()).slice(-2);
-  const hours = ("0" + date.getHours()).slice(-2);
-  const minutes = ("0" + date.getMinutes()).slice(-2);
-
-  return month + "월" + day + "일 " + hours + ":" + minutes;
-};
-
 const Recording = () => {
+  const [loading, setLoading] = useState(false);
   const { register, reset } = useForm<FormDataType>();
 
   const formRef = useRef(null!);
-
+  const currentDate = getDate();
   const currentTime = getTime();
+
+  //라디오들
+  const types = ["거래", "출금", "청산"];
+  const coins = ["비트", "이더", "기타"];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formRef.current);
+    setLoading(true);
     fetch(
-      "https://script.google.com/macros/s/AKfycbzaa4Lcjam3g10dDVcTNfCIoyuyhSvfE2mICW_JA32wAZXzwqlPJsQ8OHjvHj4mgoUMFw/exec",
+      "https://script.google.com/macros/s/AKfycbyB74sLmOi_ptCZ9A5NDnXc6eZLlXSsSn-WyeCQrfGTLUG-FG3VzWC1IgeUS_c5MWkPSQ/exec",
       { method: "POST", body: new FormData(formRef.current) }
     )
       .then((res) => {
         reset();
-        console.log("SUCCESSFULLY SUBMITTED");
+        setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert(err);
+        setLoading(false);
+      });
   };
+
+  if (loading) return <MySpinner />;
 
   return (
     <>
       <form method="post" ref={formRef} onSubmit={handleSubmit}>
-        <Flex alignItems="center">
-          <Input defaultValue={currentTime} {...register("time")} />
-          <Input placeholder="현재 지갑 금액" {...register("wallet")} />
-          <Input placeholder="종목" {...register("name")} />
-          <Input placeholder="배율" {...register("leverage")} />
-          <Input placeholder="메모" {...register("memo")} />
+        <VStack alignItems="center" gap={4}>
+          <HStack w="full" gap={2}>
+            <Input defaultValue={currentDate} {...register("date")} />
+            <Input defaultValue={currentTime} {...register("time")} />
+          </HStack>
+
+          <CustomRadio name="type" options={types} />
+          <CustomRadio name="coin" options={coins} />
+
+          <HStack gap={2}>
+            <Input placeholder="배율" type="number" {...register("leverage")} />
+            <Input placeholder="시작가" type="number" {...register("start")} />
+            <Input placeholder="종료가" type="number" {...register("end")} />
+          </HStack>
+
+          <Textarea placeholder="메모" {...register("memo")} />
           <Button type="submit">확인</Button>
-        </Flex>
+        </VStack>
       </form>
     </>
   );
