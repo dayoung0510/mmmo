@@ -7,6 +7,7 @@ import {
   MenuItem,
   Center,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import { GrMandriva } from "react-icons/gr";
 import { BsPencil, BsCardList } from "react-icons/bs";
@@ -24,13 +25,19 @@ const Nav = () => {
             icon={<GrMandriva />}
             variant="ghost"
           />
-          <MenuList>
-            <Link to="/">
-              <MenuItem icon={<BsPencil />}>메인</MenuItem>
-            </Link>
-            <Link to="/records">
-              <MenuItem icon={<BsCardList />}>기록모음</MenuItem>
-            </Link>
+          <MenuList bg="gray.100" boxShadow="md">
+            <VStack gap={2} alignItems="flex-start">
+              <Link to="/">
+                <MenuItem bg="0" icon={<BsPencil />}>
+                  메인
+                </MenuItem>
+              </Link>
+              <Link to="/records">
+                <MenuItem bg="0" icon={<BsCardList />}>
+                  기록모음
+                </MenuItem>
+              </Link>
+            </VStack>
           </MenuList>
         </Menu>
       </Box>

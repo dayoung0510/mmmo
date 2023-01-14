@@ -26,15 +26,15 @@ const Recording = () => {
 
   //라디오들
   const types = ["거래", "출금", "청산"];
-  const coins = ["비트", "이더", "기타"];
+  const coins = ["BTC", "ETH", "etc..."];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    fetch(
-      "https://script.google.com/macros/s/AKfycbyB74sLmOi_ptCZ9A5NDnXc6eZLlXSsSn-WyeCQrfGTLUG-FG3VzWC1IgeUS_c5MWkPSQ/exec",
-      { method: "POST", body: new FormData(formRef.current) }
-    )
+    fetch(import.meta.env.VITE_SPREADSHEET_API, {
+      method: "POST",
+      body: new FormData(formRef.current),
+    })
       .then((res) => {
         reset();
         setLoading(false);
