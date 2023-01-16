@@ -31,13 +31,10 @@ const Recording = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    fetch(
-      "https://script.google.com/macros/s/AKfycbwu03uTzJ7-TE0ItCkgqdEQUC7SsYSZ27JapJJwx06EnL_GlFjVZY5-iQtOGPPsMQXSIg/exec",
-      {
-        method: "POST",
-        body: new FormData(formRef.current),
-      }
-    )
+    fetch(import.meta.env.VITE_SPREADSHEET_API, {
+      method: "POST",
+      body: new FormData(formRef.current),
+    })
       .then((res) => {
         reset();
         setLoading(false);

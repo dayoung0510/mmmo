@@ -5,8 +5,7 @@ import { FaComment } from "react-icons/fa";
 import MemoModal from "src/components/atoms/MemoModal";
 
 const Records = () => {
-  const url =
-    "https://script.google.com/macros/s/AKfycbwu03uTzJ7-TE0ItCkgqdEQUC7SsYSZ27JapJJwx06EnL_GlFjVZY5-iQtOGPPsMQXSIg/exec";
+  const url = import.meta.env.VITE_SPREADSHEET_API;
   const [head, setHead] = useState<null | []>();
   const [body, setBody] = useState<null | []>();
   const [loading, setLoading] = useState(false);
