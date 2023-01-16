@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  useDisclosure,
-  Center,
-  VStack,
-  Grid,
-  IconButton,
-} from "@chakra-ui/react";
+import { useDisclosure, Center, Box, Grid, IconButton } from "@chakra-ui/react";
 import MySpinner from "src/components/atoms/MySpinner";
 import { FaComment } from "react-icons/fa";
 import MemoModal from "src/components/atoms/MemoModal";
 
 const Records = () => {
-  const url = import.meta.env.VITE_SPREADSHEET_API;
+  const url =
+    "https://script.google.com/macros/s/AKfycbwu03uTzJ7-TE0ItCkgqdEQUC7SsYSZ27JapJJwx06EnL_GlFjVZY5-iQtOGPPsMQXSIg/exec";
   const [head, setHead] = useState<null | []>();
   const [body, setBody] = useState<null | []>();
   const [loading, setLoading] = useState(false);
@@ -41,7 +36,7 @@ const Records = () => {
   if (!head || loading) return <MySpinner />;
 
   return (
-    <div>
+    <Box>
       <Grid
         templateColumns="repeat(6, 1fr)"
         my={2}
@@ -76,7 +71,7 @@ const Records = () => {
         ))}
 
       <MemoModal isOpen={isOpen} onClose={onClose} content={content} />
-    </div>
+    </Box>
   );
 };
 

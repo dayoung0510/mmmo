@@ -31,10 +31,13 @@ const Recording = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    fetch(import.meta.env.VITE_SPREADSHEET_API, {
-      method: "POST",
-      body: new FormData(formRef.current),
-    })
+    fetch(
+      "https://script.google.com/macros/s/AKfycbwu03uTzJ7-TE0ItCkgqdEQUC7SsYSZ27JapJJwx06EnL_GlFjVZY5-iQtOGPPsMQXSIg/exec",
+      {
+        method: "POST",
+        body: new FormData(formRef.current),
+      }
+    )
       .then((res) => {
         reset();
         setLoading(false);
@@ -50,7 +53,7 @@ const Recording = () => {
   return (
     <>
       <form method="post" ref={formRef} onSubmit={handleSubmit}>
-        <VStack alignItems="center" gap={4}>
+        <VStack alignItems="center" gap={4} mt={4}>
           <HStack w="full" gap={2}>
             <Input defaultValue={currentDate} {...register("date")} />
             <Input defaultValue={currentTime} {...register("time")} />

@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
-    <Center bg="white" position="relative" h="3rem">
+    <Center bg="white" position="relative" h="4rem">
       <Box position="absolute" left={4}>
         <Menu>
           <MenuButton
@@ -52,11 +52,11 @@ const Nav = () => {
 
 const Layout = ({ children }: { children: React.ReactChild }) => {
   return (
-    <Box w="full" minH="100vh">
+    <Box w="full" minH="100vh" position="relative">
       <Center w="full" h="full">
         <Box w={{ base: "md", md: "xl" }} bg="white" minH="100vh">
           <Nav />
-          <Box p={{ base: 1, md: 2 }}>{children}</Box>
+          <Box p={{ base: 2, md: 4 }}>{children}</Box>
         </Box>
       </Center>
     </Box>
