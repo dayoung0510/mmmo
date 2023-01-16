@@ -25,7 +25,7 @@ const Nav = () => {
             icon={<GrMandriva />}
             variant="ghost"
           />
-          <MenuList bg="gray.100" boxShadow="md">
+          <MenuList boxShadow="md">
             <VStack gap={2} alignItems="flex-start">
               <Link to="/">
                 <MenuItem bg="0" icon={<BsPencil />}>
@@ -56,7 +56,7 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
       <Center w="full" h="full">
         <Box w={{ base: "md", md: "xl" }} bg="white" minH="100vh">
           <Nav />
-          <Box p={4}>{children}</Box>
+          <Box p={{ base: 1, md: 2 }}>{children}</Box>
         </Box>
       </Center>
     </Box>

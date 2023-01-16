@@ -5,10 +5,10 @@ const MySpinner = () => {
     <Center
       bg="blackAlpha.600"
       position="absolute"
-      top={0}
+      top="3rem"
       right={0}
       w="full"
-      h="full"
+      h="calc(100vh - 3rem)"
     >
       <Spinner size="xl" color="white" />
     </Center>

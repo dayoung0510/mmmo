@@ -2,6 +2,7 @@
   "name": "mmmo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://dayoung0510.github.io/mmmo",
   "dependencies": {
     "@chakra-ui/react": "^2.4.6",
     "@testing-library/jest-dom": "^5.16.5",
@@ -25,7 +26,8 @@
   "scripts": {
     "start": "vite --port 3000",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "vercel": "vercel dev"
   },
   "eslintConfig": {
     "extends": [
@@ -75,6 +77,7 @@
     "prettier-eslint-cli": "^5.0.1",
     "prop-types": "^15.8.1",
     "react-error-overlay": "^6.0.9",
+    "vercel": "^28.12.4",
     "vite": "^3.2.3",
     "vite-plugin-svgr": "^2.2.2",
     "vite-tsconfig-paths": "^3.5.2",

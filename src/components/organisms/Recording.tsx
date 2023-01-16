@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Textarea, Input, Button, VStack, HStack } from "@chakra-ui/react";
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import MySpinner from "src/components/atoms/MySpinner";
 import CustomRadio from "src/components/atoms/CustomRadio";
 import { getTime, getDate } from "src/utils";
@@ -18,7 +18,7 @@ type FormDataType = {
 
 const Recording = () => {
   const [loading, setLoading] = useState(false);
-  const { register, reset } = useForm<FormDataType>();
+  const { register, reset, watch, setValue } = useForm<FormDataType>();
 
   const formRef = useRef(null!);
   const currentDate = getDate();
