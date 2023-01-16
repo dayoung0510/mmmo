@@ -4,9 +4,18 @@ export const theme = extendTheme({
   styles: {
     global: {
       "html, body": {
+        padding: 0,
+        margin: 0,
+        overflow: "hidden",
+        height: "100vh",
+        width: "100vw",
+        position: "relative",
+        background: "blackAlpha.50",
+        color: "#292929",
+        fontFamily: "Pretendard, sans-serif",
         fontSize: {
           base: "16px",
-          sm: "24px",
+          sm: "16px",
         },
       },
       "body > #root": {
