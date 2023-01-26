@@ -5,12 +5,19 @@ import Layout from "src/components/atoms/Layout";
 import Records from "src/pages/Records";
 
 type StateType = {
-  lastEndPrice: string;
+  loading: boolean;
+  head: string[];
+  body: string[];
 };
-type ActionType = { type: "SET_LAST_END_PRICE"; lastEndPrice: string };
+type ActionType =
+  | { type: "SET_LOADING"; loading: boolean }
+  | { type: "SET_HEAD"; head: string[] }
+  | { type: "SET_BODY"; body: string[] };
 
 const defaultState: StateType = {
-  lastEndPrice: "",
+  loading: false,
+  head: [],
+  body: [],
 };
 type ContextProps = {
   state: StateType;
@@ -19,9 +26,17 @@ type ContextProps = {
 
 const reducer = (state: StateType, action: ActionType) => {
   switch (action.type) {
-    case "SET_LAST_END_PRICE": {
-      const { lastEndPrice } = action;
-      return { ...state, lastEndPrice };
+    case "SET_LOADING": {
+      const { loading } = action;
+      return { ...state, loading };
+    }
+    case "SET_HEAD": {
+      const { head } = action;
+      return { ...state, head };
+    }
+    case "SET_BODY": {
+      const { body } = action;
+      return { ...state, body };
     }
     default: {
       return state;

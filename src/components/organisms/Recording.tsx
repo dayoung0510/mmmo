@@ -18,7 +18,6 @@ type FormDataType = {
 };
 
 const Recording = () => {
-  const [loading, setLoading] = useState(false);
   const { register, reset, setValue } = useForm<FormDataType>();
 
   const formRef = useRef(null!);
@@ -29,33 +28,34 @@ const Recording = () => {
   const types = ["거래", "출금", "청산"];
   const coins = ["BTC", "ETH", "etc..."];
 
-  const { state } = useRecordContext();
+  const { state, dispatch } = useRecordContext();
 
   //마지막 종료가 존재하면 시작가 디폴트값으로 넣어주기
   useEffect(() => {
-    if (state.lastEndPrice !== "") {
-      setValue("start", state.lastEndPrice);
+    if (!state.loading && state.body.length !== 0) {
+      const lastEndPrice = state.body[state.body.length - 1][4];
+      setValue("start", lastEndPrice);
     }
-  }, [state.lastEndPrice, setValue]);
+  }, [state.body, setValue]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch({ type: "SET_LOADING", loading: true });
     fetch(import.meta.env.VITE_SPREADSHEET_API, {
       method: "POST",
       body: new FormData(formRef.current),
     })
       .then((res) => {
         reset();
-        setLoading(false);
+        dispatch({ type: "SET_LOADING", loading: false });
       })
       .catch((err) => {
         alert(err);
-        setLoading(false);
+        dispatch({ type: "SET_LOADING", loading: false });
       });
   };
 
-  if (loading) return <MySpinner />;
+  if (state.loading) return <MySpinner />;
 
   return (
     <>
