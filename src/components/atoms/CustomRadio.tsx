@@ -33,7 +33,7 @@ const CustomRadio = ({ options, name }: CustomRadioProps) => {
         return (
           <RadioCard
             key={value}
-            colorScheme={name === "coin" ? "cyan" : "pink"}
+            colorScheme={name === "coin" ? "cyan" : "green"}
             props={{ ...radio }}
           >
             {value}
