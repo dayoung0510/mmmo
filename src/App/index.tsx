@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Main from "src/pages/Main";
 import Layout from "src/components/atoms/Layout";
+import Recording from "src/pages/Recording";
 import Records from "src/pages/Records";
 
 type StateType = {
@@ -63,7 +63,7 @@ const Index = () => {
     <RecordContext>
       <Layout>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Recording />} />
           <Route path="/records" element={<Records />} />
           <Route path="/*" element={<Navigate replace to="/" />} />
         </Routes>

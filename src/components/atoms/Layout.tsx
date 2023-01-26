@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Box,
   IconButton,
@@ -12,6 +13,7 @@ import {
 import { GrMandriva } from "react-icons/gr";
 import { BsPencil, BsCardList } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useRecordContext } from "src/App";
 
 const Nav = () => {
   return (
@@ -51,6 +53,24 @@ const Nav = () => {
 };
 
 const Layout = ({ children }: { children: React.ReactChild }) => {
+  const url = import.meta.env.VITE_SPREADSHEET_API;
+  const { dispatch } = useRecordContext();
+
+  //시트에서 데이터 불러오기
+  useEffect(() => {
+    dispatch({ type: "SET_LOADING", loading: true });
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: "SET_HEAD", head: data.head });
+        dispatch({ type: "SET_BODY", body: data.body });
+        dispatch({ type: "SET_LOADING", loading: false });
+      })
+      .catch((err) => {
+        dispatch({ type: "SET_LOADING", loading: false });
+      });
+  }, [fetch, url]);
+
   return (
     <Box w="full" minH="100vh" position="relative">
       <Center w="full" h="full">
