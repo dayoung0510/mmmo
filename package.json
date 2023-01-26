@@ -27,7 +27,8 @@
     "start": "vite --port 3000",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "vercel": "vercel dev"
+    "vercel": "vercel dev",
+    "deploy": "vercel deploy"
   },
   "eslintConfig": {
     "extends": [
