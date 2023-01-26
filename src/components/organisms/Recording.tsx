@@ -4,21 +4,22 @@ import React, { useEffect, useState, useRef } from "react";
 import MySpinner from "src/components/atoms/MySpinner";
 import CustomRadio from "src/components/atoms/CustomRadio";
 import { getTime, getDate } from "src/utils";
+import { useRecordContext } from "src/App";
 
 type FormDataType = {
   date: string;
   time: string;
   type: string;
-  start: number;
-  end: number;
+  start: string;
+  end: string;
   coin: string;
-  leverage: number;
+  leverage: string;
   memo: string;
 };
 
 const Recording = () => {
   const [loading, setLoading] = useState(false);
-  const { register, reset, watch, setValue } = useForm<FormDataType>();
+  const { register, reset, setValue } = useForm<FormDataType>();
 
   const formRef = useRef(null!);
   const currentDate = getDate();
@@ -27,6 +28,15 @@ const Recording = () => {
   //라디오들
   const types = ["거래", "출금", "청산"];
   const coins = ["BTC", "ETH", "etc..."];
+
+  const { state } = useRecordContext();
+
+  //마지막 종료가 존재하면 시작가 디폴트값으로 넣어주기
+  useEffect(() => {
+    if (state.lastEndPrice !== "") {
+      setValue("start", state.lastEndPrice);
+    }
+  }, [state.lastEndPrice, setValue]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,9 +70,9 @@ const Recording = () => {
           <CustomRadio name="coin" options={coins} />
 
           <HStack gap={2}>
-            <Input placeholder="배율" type="number" {...register("leverage")} />
-            <Input placeholder="시작가" type="number" {...register("start")} />
-            <Input placeholder="종료가" type="number" {...register("end")} />
+            <Input placeholder="배율" {...register("leverage")} />
+            <Input placeholder="시작가" {...register("start")} />
+            <Input placeholder="종료가" {...register("end")} />
           </HStack>
 
           <Textarea placeholder="메모" {...register("memo")} />

@@ -3,6 +3,7 @@ import { useDisclosure, Center, Box, Grid, IconButton } from "@chakra-ui/react";
 import MySpinner from "src/components/atoms/MySpinner";
 import { FaComment } from "react-icons/fa";
 import MemoModal from "src/components/atoms/MemoModal";
+import { useRecordContext } from "src/App";
 
 const Records = () => {
   const url = import.meta.env.VITE_SPREADSHEET_API;
@@ -10,6 +11,8 @@ const Records = () => {
   const [body, setBody] = useState<null | []>();
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
+
+  const { dispatch } = useRecordContext();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -26,6 +29,14 @@ const Records = () => {
         setLoading(false);
       });
   }, [fetch, url]);
+
+  //마지막 종료가를 context에 보내기
+  useEffect(() => {
+    if (body) {
+      const lastEndPrice = body[body.length - 1][4];
+      dispatch({ type: "SET_LAST_END_PRICE", lastEndPrice });
+    }
+  }, [body]);
 
   const handleModalOpen = (str: string) => {
     setContent(str);
