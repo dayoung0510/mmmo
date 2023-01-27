@@ -74,9 +74,22 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
   return (
     <Box w="full" minH="100vh" position="relative">
       <Center w="full" h="full">
-        <Box w={{ base: "md", md: "xl" }} bg="white" minH="100vh">
+        <Box
+          w={{ base: "md", md: "xl" }}
+          bg="white"
+          minH="100vh"
+          position="relative"
+        >
           <Nav />
-          <Box p={{ base: 2, md: 4 }}>{children}</Box>
+          <Box
+            position="absolute"
+            top="4rem"
+            w="full"
+            h="calc(100% - 4rem)"
+            p={{ base: 2, md: 4 }}
+          >
+            {children}
+          </Box>
         </Box>
       </Center>
     </Box>

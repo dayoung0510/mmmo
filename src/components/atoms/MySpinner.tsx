@@ -1,9 +1,9 @@
-import { Text, Box, Flex, Center, Spinner } from "@chakra-ui/react";
+import { Center, Spinner } from "@chakra-ui/react";
 
 const MySpinner = () => {
   return (
     <Center
-      bg="blackAlpha.600"
+      bg="blackAlpha.400"
       position="absolute"
       top={0}
       right={0}
