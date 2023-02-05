@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDisclosure, Center, Box, Grid, IconButton } from "@chakra-ui/react";
 import MySpinner from "src/components/atoms/MySpinner";
 import { FaComment } from "react-icons/fa";

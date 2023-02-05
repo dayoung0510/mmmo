@@ -1,54 +1,39 @@
 import { useEffect } from "react";
-import {
-  Box,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Center,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import { GrMandriva } from "react-icons/gr";
-import { BsPencil, BsCardList } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Box, Text, Center, HStack } from "@chakra-ui/react";
+import { Link, useLocation } from "react-router-dom";
 import { useRecordContext } from "src/App";
 
+const navButtons = [
+  {
+    link: "/",
+    korean: "기록작성",
+  },
+  {
+    link: "/records",
+    korean: "기록리스트",
+  },
+];
+
 const Nav = () => {
+  const { pathname } = useLocation();
+
   return (
-    <Center bg="white" position="relative" h="4rem">
-      <Box position="absolute" left={4}>
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            fontSize="2rem"
-            color="red.400"
-            icon={<GrMandriva />}
-            variant="ghost"
-          />
-          <MenuList boxShadow="md">
-            <VStack gap={2} alignItems="flex-start">
-              <Link to="/">
-                <MenuItem bg="0" icon={<BsPencil />}>
-                  메인
-                </MenuItem>
-              </Link>
-              <Link to="/records">
-                <MenuItem bg="0" icon={<BsCardList />}>
-                  기록모음
-                </MenuItem>
-              </Link>
-            </VStack>
-          </MenuList>
-        </Menu>
-      </Box>
-      <Link to="/">
-        <Text color="blue.300" fontWeight={800} fontSize="xl">
-          MMMO
-        </Text>
-      </Link>
-    </Center>
+    <HStack gap={6} p={2} justifyContent="center" bg="gray.900" zIndex={9}>
+      {navButtons.map((button) => {
+        return (
+          <Link key={button.link} to={button.link}>
+            <HStack>
+              <Text
+                color={pathname === button.link ? "white" : "gray.100"}
+                fontWeight={pathname === button.link ? 800 : 400}
+              >
+                {button.korean}
+              </Text>
+            </HStack>
+          </Link>
+        );
+      })}
+    </HStack>
   );
 };
 
@@ -81,13 +66,7 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
           position="relative"
         >
           <Nav />
-          <Box
-            position="absolute"
-            top="4rem"
-            w="full"
-            h="calc(100% - 4rem)"
-            p={{ base: 2, md: 4 }}
-          >
+          <Box w="full" p={{ base: 2, md: 4 }}>
             {children}
           </Box>
         </Box>
