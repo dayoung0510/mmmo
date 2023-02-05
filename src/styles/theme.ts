@@ -7,8 +7,8 @@ export const theme = extendTheme({
         padding: 0,
         margin: 0,
         overflow: "hidden",
-        height: "100vh",
-        width: "100vw",
+        height: "100%",
+        width: "100%",
         position: "relative",
         background: "blackAlpha.50",
         color: "#292929",
@@ -19,6 +19,7 @@ export const theme = extendTheme({
         },
       },
       "body > #root": {
+        overflow: "auto",
         height: "100%",
       },
     },

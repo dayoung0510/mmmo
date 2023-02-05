@@ -24,7 +24,7 @@ const Nav = () => {
           <Link key={button.link} to={button.link}>
             <HStack>
               <Text
-                color={pathname === button.link ? "white" : "gray.100"}
+                color={pathname === button.link ? "white" : "#acacac"}
                 fontWeight={pathname === button.link ? 800 : 400}
               >
                 {button.korean}
@@ -57,7 +57,7 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
   }, [fetch, url]);
 
   return (
-    <Box w="full" minH="100vh" position="relative">
+    <Box w="full" minH="100%" position="relative">
       <Center w="full" h="full">
         <Box
           w={{ base: "md", md: "xl" }}
@@ -66,9 +66,7 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
           position="relative"
         >
           <Nav />
-          <Box w="full" p={{ base: 2, md: 4 }}>
-            {children}
-          </Box>
+          <Box w="full">{children}</Box>
         </Box>
       </Center>
     </Box>

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { Textarea, Input, Button, VStack, HStack } from "@chakra-ui/react";
-import React, { useEffect, useState, useRef } from "react";
+import { Textarea, Box, Input, Button, VStack, HStack } from "@chakra-ui/react";
+import React, { useEffect, useRef } from "react";
 import MySpinner from "src/components/atoms/MySpinner";
 import CustomRadio from "src/components/atoms/CustomRadio";
 import { getTime, getDate } from "src/utils";
@@ -58,7 +58,7 @@ const Recording = () => {
   if (state.loading) return <MySpinner />;
 
   return (
-    <>
+    <Box p={{ base: 2, md: 4 }}>
       <form method="post" ref={formRef} onSubmit={handleSubmit}>
         <VStack alignItems="center" gap={4} mt={4}>
           <HStack w="full" gap={2}>
@@ -79,7 +79,7 @@ const Recording = () => {
           <Button type="submit">확인</Button>
         </VStack>
       </form>
-    </>
+    </Box>
   );
 };
 
