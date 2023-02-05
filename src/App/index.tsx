@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "src/components/atoms/Layout";
 import Recording from "src/pages/Recording";
 import Records from "src/pages/Records";
+import Percentage from "src/pages/Percentage";
 
 type StateType = {
   loading: boolean;
@@ -65,6 +66,7 @@ const Index = () => {
         <Routes>
           <Route path="/" element={<Recording />} />
           <Route path="/records" element={<Records />} />
+          <Route path="/percentage" element={<Percentage />} />
           <Route path="/*" element={<Navigate replace to="/" />} />
         </Routes>
       </Layout>

@@ -12,6 +12,10 @@ const navButtons = [
     link: "/records",
     korean: "기록리스트",
   },
+  {
+    link: "/percentage",
+    korean: "등락률",
+  },
 ];
 
 const Nav = () => {
