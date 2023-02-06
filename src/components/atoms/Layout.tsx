@@ -22,13 +22,13 @@ const Nav = () => {
   const { pathname } = useLocation();
 
   return (
-    <HStack gap={6} p={2} justifyContent="center" bg="gray.900" zIndex={9}>
+    <HStack gap={6} p={2} justifyContent="center" bg="gray.700" zIndex={9}>
       {navButtons.map((button) => {
         return (
           <Link key={button.link} to={button.link}>
             <HStack>
               <Text
-                color={pathname === button.link ? "white" : "#acacac"}
+                color={pathname === button.link ? "white" : "gray.400"}
                 fontWeight={pathname === button.link ? 800 : 400}
               >
                 {button.korean}

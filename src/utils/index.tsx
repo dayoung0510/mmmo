@@ -1,3 +1,6 @@
+import { useMemo } from "react";
+import { Text } from "@chakra-ui/react";
+
 const date = new Date();
 
 export const getDate = () => {
@@ -12,4 +15,9 @@ export const getTime = () => {
   const minutes = ("0" + date.getMinutes()).slice(-2);
 
   return `${hours}:${minutes}`;
+};
+
+export const getPercentage = (start: number, end: number) => {
+  const result = Number((((end - start) / start) * 100).toFixed(1));
+  return <Text color={result >= 0 ? "blue.400" : "red.400"}>{result}%</Text>;
 };
