@@ -30,6 +30,23 @@ const Recording = () => {
 
   const { state, dispatch } = useRecordContext();
 
+  const url = import.meta.env.VITE_SPREADSHEET_API;
+
+  //시트에서 데이터 불러오기
+  useEffect(() => {
+    dispatch({ type: "SET_LOADING", loading: true });
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: "SET_HEAD", head: data.head });
+        dispatch({ type: "SET_BODY", body: data.body });
+        dispatch({ type: "SET_LOADING", loading: false });
+      })
+      .catch((err) => {
+        dispatch({ type: "SET_LOADING", loading: false });
+      });
+  }, [fetch, url]);
+
   //마지막 종료가 존재하면 시작가 디폴트값으로 넣어주기
   useEffect(() => {
     if (!state.loading && state.body.length !== 0) {
