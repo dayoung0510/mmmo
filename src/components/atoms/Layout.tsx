@@ -42,6 +42,24 @@ const Nav = () => {
 };
 
 const Layout = ({ children }: { children: React.ReactChild }) => {
+  const url = import.meta.env.VITE_SPREADSHEET_API;
+  const { dispatch } = useRecordContext();
+
+  //시트에서 데이터 불러오기
+  useEffect(() => {
+    dispatch({ type: "SET_LOADING", loading: true });
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: "SET_HEAD", head: data.head });
+        dispatch({ type: "SET_BODY", body: data.body });
+        dispatch({ type: "SET_LOADING", loading: false });
+      })
+      .catch((err) => {
+        dispatch({ type: "SET_LOADING", loading: false });
+      });
+  }, [fetch, url, dispatch]);
+
   return (
     <Box w="full" minH="100%" position="relative">
       <Center w="full" h="full">

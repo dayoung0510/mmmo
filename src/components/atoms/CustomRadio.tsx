@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
+import { FormDataType } from "src/pages/Recording";
 import {
   HStack,
   useRadio,
@@ -19,12 +22,27 @@ type Props = {
 };
 
 const CustomRadio = ({ options, name }: CustomRadioProps) => {
-  const { getRootProps, getRadioProps } = useRadioGroup({
+  const [state, setState] = useState("");
+  const { getRootProps, getRadioProps, onChange } = useRadioGroup({
     name,
     defaultValue: options[0],
+    onChange: setState,
   });
 
   const group = getRootProps();
+
+  const { setValue } = useFormContext<FormDataType>();
+
+  //'거래'가 아닌 항목 선택 시, 레버리지 칸에 해당 텍스트 표시
+  useEffect(() => {
+    if (state === "입금") {
+      setValue("leverage", "입금");
+    } else if (state === "출금") {
+      setValue("leverage", "출금");
+    } else if (state === "청산") {
+      setValue("leverage", "청산");
+    }
+  }, [state, setValue]);
 
   return (
     <HStack w="full" {...group}>
